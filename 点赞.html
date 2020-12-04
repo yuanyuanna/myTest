@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>小白白</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <!-- <script src="main.js"></script> -->
+    <style>
+      body{
+        background-color: grey;
+      }
+      .btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        background-color: pink;
+        color: #fff;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .btn:hover {
+        opacity: 0.8;
+      }
+
+      .btn:active {
+        opacity: 1;
+      }
+
+      .red-heart {
+        position: absolute;
+        left: 50%;
+
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 25px;
+        height: 25px;
+        /* pointer-events: none; 这个属性是禁用onclick事件，也就是不能点击他 */
+        /* pointer-events: none;   */
+        /* background-position: center;
+        background-repeat: no-repeat; */
+        background-size: cover;
+        background-image: url(images/1.png);
+        animation: animation-x 3s 0s linear infinite, animation-y 4s 0s linear 1;
+      }
+
+      .yellow-heart {
+        background-image: url(images/2.png);
+        animation: animation-x 3s -2s linear infinite,
+          animation-y 4s 0s linear 1;
+      }
+
+      @keyframes animation-y {
+        0% {
+          transform: translate(-50%, 0px) scale(0);
+        }
+
+        50% {
+          transform: translate(-50%, -100px) scale(1.5);
+        }
+
+        100% {
+          transform: translate(-50%, -300px) scale(1.5);
+        }
+      }
+
+      @keyframes animation-x {
+        0% {
+          margin-left: 0px;
+        }
+
+        25% {
+          margin-left: 25px;
+        }
+
+        75% {
+          margin-left: -25px;
+        }
+
+        100% {
+          margin-left: 0px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="btn" onclick="like()">点赞</div>
+    <p style="user-select: none">这是一个文本</p>
+  </body>
+  <script>
+    let count = 0;
+
+    // function like() {
+    //   const likeDom = document.createElement("div");
+    //   count++;
+    //   likeDom.className = count % 2 === 0 ? "like" : "like like-is-second";
+    //   likeDom.style.willChange = "margin-top";
+    //   document.body.appendChild(likeDom);
+    //   setTimeout(() => {
+    //     document.body.removeChild(likeDom);
+    //   }, 3900);
+    // }
+    function like() {
+      var hearts = $("<div></div>");
+      count++;
+      hearts.addClass(count % 2 === 0 ? "red-heart" : "red-heart yellow-heart");
+
+      // likeDom.css("willChange", "margin-top");
+      $("body").append(hearts);
+      setTimeout(() => {
+        console.log($(hearts));
+        $(hearts).remove();
+      }, 3000);
+    }
+  </script>
+</html>
