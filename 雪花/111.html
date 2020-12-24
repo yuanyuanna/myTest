@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雪花的制作</title>
+    <style>
+        body{
+            background-image: url('2.jpg');
+            background-size: cover;
+        }
+        /* 雪花的制作 */
+        .snow{
+            width: 5px;
+            height: 5px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 2px 2px #fff;
+            position: absolute;
+            margin-left: 1px;
+            /* 让雪花在最上面，看不到，就像飘落下来 */
+            top: -20px;
+        }
+
+    </style>
+</head>
+<body>
+    
+</body>
+<script src="jquery-1.12.4.min.js"></script>
+<script>
+
+    // 注意！！！我选的的设备是320x568的，也就是控制台里面那个iphone5
+    $(function(){
+        // 获取窗口的大小
+        var serviceTop = $(window).height();
+        var serviceWidth = $(window).width(); 
+        setInterval(function(){
+            $('body').append('<div class="snow"></div>')
+            snowFlow();
+        }, 100);
+        // 雪花的运动
+        function snowFlow(){
+            $('.snow').each(function(){
+                var snow_time = Math.random()* 20000;
+                // 这里获取正负数是控制雪花向左或者向右运动
+                var lORr = [-1,1]
+                var float_left = lORr[Math.floor(Math.random()*2)]*10+'px'
+                var wid_left = Math.random() *serviceWidth + "px";
+                // 这里需要判断一下，不然那个雪花会闪，因为一开始雪花的位置是确定的
+                if ($(this).css("margin-left") == 1 + "px") {
+                    $(this).css("margin-left", wid_left);
+                }
+                $(this).animate({
+                    top: serviceTop,
+                    left: float_left,
+                },snow_time);
+                
+                // 前面这2个if其实用处不是很大，这样设置不会出现滚动条
+                if(parseInt($(this).css("margin-left"))<=0){
+                    $(this).remove();
+                }
+                if(parseInt($(this).css("margin-left"))>=300){
+                    $(this).remove();
+                }
+
+                if ($(this).offset().top >= (serviceTop-20)) {
+                    console.log($(this).offset().top,serviceTop)
+                        $(this).remove();
+                    }
+            })
+        }
+    })
+</script>
+</html>
